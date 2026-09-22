@@ -25,7 +25,7 @@ LEFT JOIN activity a
 
 
 -- Q2. Total content created, and total revenue, across the platform
--- Q2. Total content created, and total revenue, across the platform
+
 SELECT
     (SELECT SUM(content_created) FROM activity)            AS total_content_created,
     (SELECT SUM(amount_billed) FROM billing_transactions)  AS total_revenue;
