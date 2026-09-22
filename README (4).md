@@ -128,7 +128,7 @@ erDiagram
 
 <!-- TODO: List the questions you actually answered, e.g. -->
 1.How much revenue each customer generates
-2.How much customers use the product
+2.How many customers use the product
 3.How actively customers use the product
 4.Revenue generated relative to usage
 5.How many customers remain active over time
@@ -136,27 +136,7 @@ erDiagram
 7.How is customer value and engagement segmentation.
 
 
----
-
-## 📊 Findings Summary
 
 
 
----
-
-## ❓ Additional Business Question for Future Exploration
-
-<!-- TODO: Fill in your chosen follow-up question and 1-2 lines on why it matters -->
-[e.g. "Which customer groups are getting the least value per rupee of plan cost, and should pricing/plan design change for them?"]
-
----
-
-## 🛠️ Tech Stack
-
-- SQL (specify your DB: PostgreSQL / MySQL / SQL Server / etc.)
-<!-- TODO: mention any tool used for the ER diagram, e.g. Mermaid, dbdiagram.io -->
-
----
-
-=
 ```
