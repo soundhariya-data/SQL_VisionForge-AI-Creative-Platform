@@ -119,21 +119,32 @@ erDiagram
 - "Meaningful usage" is defined as a user creating content (`content_created > 0`) on a given day — login/session activity alone is not tracked.
 - `users.plan_id` reflects the user's **current** plan only. 
 - `account_status` / `cancelled_date` capture explicit cancellations. A NULL `cancelled_date` on an active-labeled user does not by itself confirm current engagement.
-- `billing_transactions.amount_billed` is the actual amount charged and may differ from `plans.monthly_cost` (list price) due to discounts or proration.
+- `billing_transactions.amount_billed` is the actual amount charged 
 - `billing_transactions.plan_id` reflects the plan **at the time of that transaction** — it is not guaranteed to match `users.plan_id` today, since there is no history table linking the two over time.
 
 ---
 
 ## 🔍 Key Business Questions Explored
 
-<!-- TODO: List the questions you actually answered, e.g. -->
-1.How much revenue each customer generates
-2.How many customers use the product
-3.How actively customers use the product
-4.Revenue generated relative to usage
-5.How many customers remain active over time
-6.How many customers leave/cancel(Churn rate)
-7.How is customer value and engagement segmentation.
+1. How much revenue does each customer generate?
+
+2. How many customers actively use the VisionForge platform?
+
+3. How frequently do customers engage with the product?
+
+4. Does higher product usage translate into higher revenue?
+
+5. Which customer groups generate the most revenue and usage?
+
+6. How does customer engagement change over time?
+
+7. What is the customer churn rate, and how many customers have cancelled?
+
+8. Which customers show high value but low engagement, or high engagement but low value?
+
+9. How can customers be segmented based on their revenue and product usage?
+
+10. Which plans have the highest customer adoption and revenue contribution?
 
 
 
