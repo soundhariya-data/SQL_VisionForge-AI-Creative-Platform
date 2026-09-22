@@ -42,23 +42,9 @@ HAVING COALESCE(SUM(a.content_created), 0) < 10;
 -- Q3. Paying users who are actually using the product
 SELECT
     u.user_id,
-    u.signup_date
-FROM users u
-WHERE EXISTS (
-    SELECT 1 FROM billing_transactions b WHERE b.user_id = u.user_id
-)
-AND EXISTS (
-    SELECT 1 FROM activity a WHERE a.user_id = u.user_id
-);
-
--- This is our "real users" set: they pay AND use the product.
-
--- Same result, using JOINs instead of EXISTS:
-SELECT
-    u.user_id,
     u.signup_date,
-    SUM(b.amount_billed)                               AS total_billed,
-    COUNT(a.activity_id)                               AS activity_count
+    SUM(b.amount_billed)    AS total_billed,
+    COUNT(a.activity_id)    AS activity_count
 FROM users u
 JOIN billing_transactions b
     ON b.user_id = u.user_id
@@ -67,7 +53,7 @@ LEFT JOIN activity a
 GROUP BY u.user_id, u.signup_date
 HAVING SUM(b.amount_billed) > 0
    AND COUNT(a.activity_id) > 0;
-
+-- These are our "real users" set: they pay AND use the product.
 
 /* ============================================================
    SECTION 2: WHICH USER OR CUSTOMER PATTERNS
@@ -78,13 +64,13 @@ HAVING SUM(b.amount_billed) > 0
 WITH user_totals AS (
     SELECT
         user_id,
-        SUM(amount_billed)                             AS total_billed
+        SUM(amount_billed)  AS total_billed
     FROM billing_transactions
     GROUP BY user_id
 ),
 platform_avg AS (
     SELECT
-        AVG(total_billed)                              AS avg_billed_per_user
+        AVG(total_billed) AS avg_billed_per_user
     FROM user_totals
 )
 SELECT
@@ -104,8 +90,8 @@ ORDER BY ut.total_billed DESC;
 -- Q5. Which customers generate high revenue but low usage?
 SELECT
     b.user_id,
-    SUM(b.amount_billed)                               AS total_revenue,
-    SUM(a.content_created)                             AS total_usage
+    SUM(b.amount_billed) AS total_revenue,
+    SUM(a.content_created)  AS total_usage
 FROM billing_transactions b
 JOIN activity a
     ON a.user_id = b.user_id
