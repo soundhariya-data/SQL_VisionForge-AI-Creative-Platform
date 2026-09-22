@@ -3,15 +3,15 @@ select * from plans;
 select * from users;
 
 #------------------------BASIC ANALYSIS------------------------------------------------#
-
+1)What are the total number of users and users who engage with the product?
 SELECT 
     COUNT(DISTINCT u.user_id) AS total_users,
     COUNT(DISTINCT a.user_id) AS users_with_activity
 FROM users u
 LEFT JOIN activity a ON u.user_id = a.user_id;
+ #The single most basic activation check — of everyone who signed up, how many ever actually used the product at all.
 
-# The single most basic activation check — of everyone who signed up, how many ever actually used the product at all.
-#What is the total content created, and total revenue, across the platform?
+What is the total content created, and total revenue, across the platform?
 SELECT
   SUM(a.Content_created) AS total_content_created,
   SUM(b.amount_billed)   AS total_revenue
