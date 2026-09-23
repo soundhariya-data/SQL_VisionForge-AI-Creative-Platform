@@ -5,14 +5,14 @@
 
 -- Q1. Find users whose first activity happened within 7 days of signup
 SELECT
-    COUNT(u.user_id)                                   AS user_count,
+    u.user_id                              
     u.signup_date,
     MIN(a.activity_date)                               AS first_activity_date,
     DATEDIFF(MIN(a.activity_date), u.signup_date)      AS days_to_activity
 FROM users u
 JOIN activity a
     ON u.user_id = a.user_id
-GROUP BY u.signup_date
+GROUP BY u.signup_date,u.user_id
 HAVING days_to_activity BETWEEN 0 AND 7;
 
 -- This query measures user activation speed — how quickly new users
