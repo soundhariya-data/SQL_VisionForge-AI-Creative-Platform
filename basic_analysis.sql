@@ -48,12 +48,7 @@ GROUP BY u.plan_id, p.plan_name;
 SELECT
     u.user_id,
     SUM(a.content_created)  AS total_content,
-    CASE
-        WHEN SUM(a.content_created) > 10 THEN 'HIGH USAGE'
-        WHEN SUM(a.content_created) < 10 THEN 'LOW USAGE'
-        ELSE 'MODERATE USAGE'
-    END   AS usage_level
-FROM users u
+   FROM users u
 JOIN activity a
     ON u.user_id = a.user_id
 GROUP BY u.user_id;
