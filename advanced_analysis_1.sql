@@ -87,18 +87,7 @@ ORDER BY ut.total_billed DESC;
 -- segmentation, retention campaigns, and upsell targeting.
 
 
--- Q5. Which customers generate high revenue but low usage?
-SELECT
-    b.user_id,
-    SUM(b.amount_billed) AS total_revenue,
-    SUM(a.content_created)  AS total_usage
-FROM billing_transactions b
-JOIN activity a
-    ON a.user_id = b.user_id
-GROUP BY b.user_id
-HAVING SUM(b.amount_billed) > 100
-   AND SUM(a.content_created) < 14
-ORDER BY total_revenue DESC;
+
 
 
 /* ============================================================
