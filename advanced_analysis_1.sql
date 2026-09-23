@@ -196,31 +196,34 @@ SELECT
 FROM users
 GROUP BY customer_group
 ORDER BY churn_rate DESC;
+
 -- Q11. Customer segmentation by revenue and usage
 SELECT
     u.user_id,
     u.account_status,
-    COALESCE(SUM(b.amount_billed), 0)                  AS total_revenue,
-    COALESCE(SUM(a.content_created), 0)                AS total_content,
+    SUM(b.amount_billed) AS total_revenue,
+    SUM(a.content_created) AS total_content,
     CASE
-        WHEN COALESCE(SUM(b.amount_billed), 0) >= 200
-         AND COALESCE(SUM(a.content_created), 0) < 5
+        WHEN SUM(b.amount_billed) >= 216
+             AND SUM(a.content_created) < 15
             THEN 'High Revenue - Low Usage'
 
-        WHEN COALESCE(SUM(b.amount_billed), 0) < 100
-         AND COALESCE(SUM(a.content_created), 0) < 5
+        WHEN SUM(b.amount_billed) < 216
+             AND SUM(a.content_created) < 15
             THEN 'Low Revenue - Low Usage'
 
-        WHEN COALESCE(SUM(b.amount_billed), 0) >= 100
-         AND COALESCE(SUM(a.content_created), 0) >= 10
+        WHEN SUM(b.amount_billed) >= 216
+             AND SUM(a.content_created) >= 15
             THEN 'High Revenue - High Usage'
 
         ELSE 'Low Revenue - High Usage'
-    END                                                 AS customer_segment
+    END AS customer_segment
 FROM users u
 LEFT JOIN billing_transactions b
     ON u.user_id = b.user_id
 LEFT JOIN activity a
     ON u.user_id = a.user_id
 WHERE u.account_status = 'active'
-GROUP BY u.user_id, u.account_status;
+GROUP BY
+    u.user_id,
+    u.account_status;
