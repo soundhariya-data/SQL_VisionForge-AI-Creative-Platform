@@ -201,19 +201,19 @@ ORDER BY churn_rate DESC;
 SELECT
     u.user_id,
     u.account_status,
-    SUM(b.amount_billed) AS total_revenue,
-    SUM(a.content_created) AS total_content,
+    COALESCE(SUM(b.amount_billed), 0) AS total_revenue,
+    COALESCE(SUM(a.content_created), 0) AS total_content,
     CASE
-        WHEN SUM(b.amount_billed) >= 216
-             AND SUM(a.content_created) < 15
+        WHEN COALESCE(SUM(b.amount_billed), 0) >= 216
+             AND COALESCE(SUM(a.content_created), 0) < 15
             THEN 'High Revenue - Low Usage'
 
-        WHEN SUM(b.amount_billed) < 216
-             AND SUM(a.content_created) < 15
+        WHEN COALESCE(SUM(b.amount_billed), 0) < 216
+             AND COALESCE(SUM(a.content_created), 0) < 15
             THEN 'Low Revenue - Low Usage'
 
-        WHEN SUM(b.amount_billed) >= 216
-             AND SUM(a.content_created) >= 15
+        WHEN COALESCE(SUM(b.amount_billed), 0) >= 216
+             AND COALESCE(SUM(a.content_created), 0) >= 15
             THEN 'High Revenue - High Usage'
 
         ELSE 'Low Revenue - High Usage'
